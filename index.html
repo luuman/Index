@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>luuman</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/home.css">
+  <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+  <canvas id="J_index_canvas" class="index-canvas"></canvas>
+  <div class="for-weixin">
+    <img src="apple-touch-icon.png" />
+    <p></p>
+  </div>
+  <div class="container-fluid main">
+    <header class="row hd">
+      <h1 class="logo" title="luuman"><a href="index.html"><img src="img/logo-with-text.svg" alt="logo"></a></h1>
+      <div class="js-main-menu main-menu ">
+        <nav class="nav-links">
+          <ul>
+            <li><a href="portfolio.html">作品 / <i>Portfolio</i></a></li>
+            <!-- <li><a href="http://blog.luuman.net/">博客 / <i>Blog</i></a></li> -->
+            <li><a href="about.html">关于 / <i>About</i></a></li>
+          </ul>
+        </nav>
+        <a href="javascript:;" class="js-menu-toggle menu-toggle">
+          <svg width="28px" height="24px" viewBox="0 0 28 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="menu-toggle-inner" fill="#1f1f1f">
+              <rect id="menu-line-bottom" transform="translate(18.000000, 22.000000) scale(-1, 1) translate(-18.000000, -22.000000) " x="8" y="20" width="20" height="4" rx="2"></rect>
+              <rect id="menu-line-center" transform="translate(14.000000, 12.000000) scale(-1, 1) translate(-14.000000, -12.000000) " x="0" y="10" width="28" height="4" rx="2"></rect>
+              <rect id="menu-line-top" transform="translate(14.000000, 2.000000) scale(-1, 1) translate(-14.000000, -2.000000) " x="0" y="0" width="28" height="4" rx="2"></rect>
+            </g>
+          </svg>
+        </a>
+      </div>
+    </header>
+    <div class="solar">
+      <div class="sun"></div>
+      <div class="mercury-orbit">
+        <div class="mercury"></div>
+      </div>
+      <div class="venus-orbit">
+        <div title="Whyutg" class="venus"></div>
+      </div>
+      <div class="earth-orbit">
+        <a title="Behance" href="https://www.behance.net/luuman" class="earth">
+          <div class="moon-orbit">
+            <div class="moon"></div>
+          </div>
+        </a>
+      </div>
+      <div class="mars-orbit">
+        <a title="Dribbble" href="https://dribbble.com/luuman" class="mars"></a>
+      </div>
+      <div class="jupiter-orbit">
+        <a title="Youzan" href="https://www.youzan.com/" class="jupiter"></a>
+      </div>
+      <div class="saturn-orbit">
+        <div class="saturn"></div>
+      </div>
+      <div class="uranus-orbit">
+        <div class="uranus"></div>
+      </div>
+      <div class="neptune-orbit">
+        <div class="neptune"></div>
+      </div>
+    </div>
+    <footer class="footer">
+      <p class="copyright">© 2020 luuman, Inc.</p>
+    </footer>
+  </div>
+  <script src="js/vendor/jquery-3.1.0.slim.min.js"></script>
+  <script>
+    $('.js-menu-toggle').on('click', function() {
+      $('.js-main-menu').toggleClass('open');
+    });
+    drawCanvas()
+    function drawCanvas() {
+      var c, n = document.getElementById("J_index_canvas");
+      function t(c) {
+        this.size = 2 * Math.random(),
+        this.speed = .07 * Math.random(),
+        this.x = c.x,
+        this.y = c.y
+      }
+      function e() {
+        this.reset()
+      }
+      c = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
+      function(c) {
+        window.setTimeout(c, 1e3 / 60)
+      },
+      window.requestAnimationFrame = c;
+      var i = n,
+      a = i.getContext("2d"),
+      s = window.innerWidth,
+      o = document.body.offsetHeight;
+      i.width = s,
+      i.height = o,
+      a.fillStyle = "#090723",
+      a.fillRect(0, 0, s, o),
+      t.prototype.reset = function() {
+        this.size = 2 * Math.random(),
+        this.speed = .05 * Math.random(),
+        this.x = s,
+        this.y = Math.random() * o
+      },
+      t.prototype.update = function() {
+        this.x -= this.speed,
+        this.x < 0 ? this.reset() : a.fillRect(this.x, this.y, this.size, this.size)
+      },
+      e.prototype.reset = function() {
+        this.x = Math.random() * s,
+        this.y = 0,
+        this.len = 80 * Math.random() + 10,
+        this.speed = 8 * Math.random() + 4,
+        this.size = +Math.random() + .1,
+        this.waitTime = (new Date).getTime() + 3e3 * Math.random() + 500,
+        this.active = !1
+      },
+      e.prototype.update = function() {
+        this.active ? (this.x -= this.speed, this.y += this.speed, this.x < 0 || this.y >= o ? this.reset() : (a.lineWidth = this.size, a.beginPath(), a.moveTo(this.x, this.y), a.lineTo(this.x + this.len, this.y - this.len), a.stroke())) : this.waitTime < (new Date).getTime() && (this.active = !0)
+      };
+      for (var l = [], r = 0; r < o; r += 4) l.push(new t({
+        x: Math.random() * s,
+        y: Math.random() * o
+      }));
+      l.push(new e),
+      l.push(new e),
+      function c() {
+        a.fillStyle = "#090723",
+        a.fillRect(0, 0, s, o);
+        var n = "rgba(255, 255, 255, 0.5)";
+        a.fillStyle = n,
+        a.strokeStyle = n;
+        for (var t = l.length; t--;) l[t].update();
+        window.requestAnimationFrame(c)
+      } ()
+    }
+  </script>
+</body>
+</html>
